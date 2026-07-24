@@ -10,7 +10,7 @@ def main():
         noise_steps=1000
     )
 
-    trainer.train(epochs=1)
+    trainer.train(epochs=3)
 
 
 if __name__ == "__main__":

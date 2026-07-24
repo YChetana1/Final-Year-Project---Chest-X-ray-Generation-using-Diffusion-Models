@@ -21,7 +21,7 @@ def main():
     ).to(device)
 
     checkpoint_path = Path(
-        "checkpoints/ddpm_epoch_1.pth"
+        "checkpoints/ddpm_epoch_3.pth"
     )
 
     if not checkpoint_path.exists():
@@ -46,11 +46,15 @@ def main():
         device=device
     )
 
-    print("Generating image...")
+    number_of_images = 1
+
+    print(
+        f"Generating {number_of_images} images..."
+    )
 
     generated_images = diffusion.sample(
         model=model,
-        number_of_images=1,
+        number_of_images=number_of_images,
         image_channels=1
     )
 
@@ -60,14 +64,32 @@ def main():
         exist_ok=True
     )
 
-    output_path = output_folder / "generated_xray.png"
+    for index, image in enumerate(
+        generated_images,
+        start=1
+    ):
+        output_path = (
+            output_folder
+            / f"generated_xray_{index}.png"
+        )
+
+        save_image(
+            image,
+            output_path
+        )
+
+        print("Saved:", output_path)
+
+    grid_path = output_folder / "generated_xray_grid.png"
 
     save_image(
         generated_images,
-        output_path
+        grid_path,
+        nrow=2
     )
 
-    print("Generated image saved at:", output_path)
+    print("Grid saved:", grid_path)
+    print("Image generation completed!")
 
 
 if __name__ == "__main__":

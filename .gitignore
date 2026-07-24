@@ -4,18 +4,16 @@ venv/
 # Dataset
 dataset/
 
-# Model checkpoints
-checkpoints/
-*.pth
-*.pt
-
 # Python cache
 __pycache__/
 *.pyc
 
-# VS Code
+# Large model checkpoints
+checkpoints/
+*.pth
+
+# VS Code settings
 .vscode/
 
-# System files
+# Temporary files
 .DS_Store
-Thumbs.db

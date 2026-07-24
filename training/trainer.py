@@ -77,7 +77,7 @@ class DDPMTrainer:
         print("Full dataset images:", len(dataset))
 
         # Quick test with only 100 images
-        test_size = min(100, len(dataset))
+        test_size = min(500, len(dataset))
         dataset = Subset(dataset, range(test_size))
 
         print("Quick test images:", len(dataset))
