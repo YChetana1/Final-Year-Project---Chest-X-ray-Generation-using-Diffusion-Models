@@ -1,0 +1,21 @@
+# Virtual environment
+venv/
+
+# Dataset
+dataset/
+
+# Model checkpoints
+checkpoints/
+*.pth
+*.pt
+
+# Python cache
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
