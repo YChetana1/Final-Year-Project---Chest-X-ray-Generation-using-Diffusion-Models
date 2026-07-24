@@ -1,33 +1,17 @@
-import torch
-
-from models.unet import TimeConditionedUNet
+from training.trainer import DDPMTrainer
 
 
-device = torch.device(
-    "cuda" if torch.cuda.is_available() else "cpu"
-)
-
-model = TimeConditionedUNet().to(device)
-
-sample_images = torch.randn(
-    2,
-    1,
-    128,
-    128
-).to(device)
-
-sample_timesteps = torch.tensor(
-    [10, 500],
-    device=device
-)
-
-with torch.no_grad():
-    output = model(
-        sample_images,
-        sample_timesteps
+def main():
+    trainer = DDPMTrainer(
+        dataset_path="dataset/chest_xray/train",
+        image_size=128,
+        batch_size=4,
+        learning_rate=1e-4,
+        noise_steps=1000
     )
 
-print("Device:", device)
-print("Input shape:", sample_images.shape)
-print("Timesteps shape:", sample_timesteps.shape)
-print("Output shape:", output.shape)
+    trainer.train(epochs=1)
+
+
+if __name__ == "__main__":
+    main()
