@@ -1,56 +1,33 @@
 import torch
 
-from models.modules import (
-    ResidualBlock,
-    SinusoidalTimeEmbedding
-)
+from models.unet import TimeConditionedUNet
 
 
 device = torch.device(
     "cuda" if torch.cuda.is_available() else "cpu"
 )
 
-time_embedding_dim = 256
-
-
-time_embedding_layer = SinusoidalTimeEmbedding(
-    embedding_dim=time_embedding_dim
-).to(device)
-
-
-residual_block = ResidualBlock(
-    in_channels=32,
-    out_channels=64,
-    time_embedding_dim=time_embedding_dim
-).to(device)
-
+model = TimeConditionedUNet().to(device)
 
 sample_images = torch.randn(
-    4,
-    32,
-    64,
-    64
+    2,
+    1,
+    128,
+    128
 ).to(device)
 
-
 sample_timesteps = torch.tensor(
-    [10, 100, 500, 900],
+    [10, 500],
     device=device
 )
 
-
-time_embeddings = time_embedding_layer(
-    sample_timesteps
-)
-
-
-output = residual_block(
-    sample_images,
-    time_embeddings
-)
-
+with torch.no_grad():
+    output = model(
+        sample_images,
+        sample_timesteps
+    )
 
 print("Device:", device)
-print("Input image shape:", sample_images.shape)
-print("Time embedding shape:", time_embeddings.shape)
-print("Output image shape:", output.shape)
+print("Input shape:", sample_images.shape)
+print("Timesteps shape:", sample_timesteps.shape)
+print("Output shape:", output.shape)
