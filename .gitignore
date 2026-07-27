@@ -16,4 +16,11 @@ checkpoints/
 .vscode/
 
 # Temporary files
-.DS_Store
+.DS_Storedataset/
+outputs/
+results/
+conditional_results/
+checkpoints/
+conditional_checkpoints/
+*.pth
+__pycache__/

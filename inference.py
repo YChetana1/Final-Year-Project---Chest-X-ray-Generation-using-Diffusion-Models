@@ -21,7 +21,7 @@ def main():
     ).to(device)
 
     checkpoint_path = Path(
-        "checkpoints/ddpm_epoch_3.pth"
+        "checkpoints/best_model.pth"
     )
 
     if not checkpoint_path.exists():
